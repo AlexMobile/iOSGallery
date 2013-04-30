@@ -27,7 +27,7 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
 /// Orientation. Shows indicates
 @property (nonatomic, assign) AMPhotoGalleryOrientation orientation;
 
-/// Size of non-active image
+/// Size of non-active image. The default value is 0.6
 @property (nonatomic, assign) CGFloat littleImageRatio;
 
 /**

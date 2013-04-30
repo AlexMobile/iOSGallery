@@ -28,8 +28,6 @@
 
 @end
 
-const CGFloat littlePictureRatio = 0.6;
-
 @implementation AMPhotoGallery
 
 - (void) dealloc {
@@ -45,6 +43,7 @@ const CGFloat littlePictureRatio = 0.6;
     self.scroll.pagingEnabled = YES;
     self.scroll.clipsToBounds = NO;
     self.scroll.delegate = self;
+	self.littleImageRatio = 0.6;
     [self addSubview:self.scroll];
     _imageViews = [NSMutableArray new];
     _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeMode)];
@@ -110,7 +109,7 @@ const CGFloat littlePictureRatio = 0.6;
 	self.scroll.contentSize = CGSizeMake(_pageSize.width * imagesCount, _pageSize.height);	
 	self.scroll.contentOffset = CGPointMake(_pageIndex * _pageSize.width, 0);
 	
-	CGSize size = CGSizeMake(_pageSize.width * littlePictureRatio, _pageSize.height * littlePictureRatio);
+	CGSize size = CGSizeMake(_pageSize.width * self.littleImageRatio, _pageSize.height * self.littleImageRatio);
 	for (NSInteger i = 0; i < imagesCount; ++i) {
         UIImageView* image = [_imageViews objectAtIndex:i];
 		if (i == _pageIndex) {
@@ -153,7 +152,7 @@ const CGFloat littlePictureRatio = 0.6;
 	self.frame = newFrame;
 	self.scroll.frame = CGRectMake((NSInteger)((newFrame.size.width - _pageSize.width) / 2), 0, _pageSize.width, _pageSize.height);
 	
-	CGSize size = CGSizeMake(_pageSize.width * littlePictureRatio, _pageSize.height * littlePictureRatio);
+	CGSize size = CGSizeMake(_pageSize.width * self.littleImageRatio, _pageSize.height * self.littleImageRatio);
 	for (NSInteger i = 0; i < imagesCount; ++i) {
         UIImageView* image = [_imageViews objectAtIndex:i];
 		if (i == _pageIndex) {
@@ -180,7 +179,7 @@ const CGFloat littlePictureRatio = 0.6;
 	
 	self.frame = _littleSizedFrame;
 	self.scroll.frame = CGRectMake((self.bounds.size.width - _pageSize.width) / 2, 0, _pageSize.width, _pageSize.height);
-	CGSize size = CGSizeMake(_littleSizedPageSize.width * littlePictureRatio, _littleSizedPageSize.height * littlePictureRatio);
+	CGSize size = CGSizeMake(_littleSizedPageSize.width * self.littleImageRatio, _littleSizedPageSize.height * self.littleImageRatio);
 	for (NSInteger i = 0; i < imagesCount; ++i) {
 		UIImageView* image = [_imageViews objectAtIndex:i];
 		if (i == _pageIndex) {
@@ -225,9 +224,9 @@ const CGFloat littlePictureRatio = 0.6;
         UIView* view = [_imageViews objectAtIndex:i];
         CGFloat imageOffset = fabsf(offset - view.center.x);
         if (imageOffset >= _pageSize.width) {
-            percentsOfFullSize = littlePictureRatio;
+            percentsOfFullSize = self.littleImageRatio;
         } else {
-            percentsOfFullSize = 1 - (imageOffset / _pageSize.width) * (1 - littlePictureRatio);
+            percentsOfFullSize = 1 - (imageOffset / _pageSize.width) * (1 - self.littleImageRatio);
         }
         CGSize size = CGSizeMake(_pageSize.width * percentsOfFullSize, _pageSize.height * percentsOfFullSize);
         view.frame = CGRectMake(i * _pageSize.width + (_pageSize.width - size.width) / 2, (_pageSize.height - size.height) / 2, size.width, size.height);
