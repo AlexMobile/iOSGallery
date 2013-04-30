@@ -8,10 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
+	AMPhotoGalleryOrientationHorizontal,
+	AMPhotoGalleryOrientationVertical
+};
 
+/**
+ Photo gallery component for iOS
+ */
 @interface AMPhotoGallery : UIView <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSArray* photos;
-@property (nonatomic) BOOL fullScreenMode;
+@property (nonatomic, assign) BOOL fullScreenMode;
+
+/// Orientation. Shows indicates
+@property (nonatomic, assign) AMPhotoGalleryOrientation orientation;
+
+/// Size of non-active
+@property (nonatomic, assign) CGFloat littleImageRatio;
+
 
 @end

@@ -9,14 +9,14 @@
 #import "AMPhotoGallery.h"
 
 @interface AMPhotoGallery () {
-    CGSize imageSize;
-    CGSize pageSize;
-	CGSize littleSizedPageSize;
-	CGRect littleSizedFrame;
-    __strong UITapGestureRecognizer* gestureRecognizer;
-    __strong NSMutableArray* imageViews;
-	NSInteger pageIndex;
-	BOOL blocked;
+    CGSize _imageSize;
+    CGSize _pageSize;
+	CGSize _littleSizedPageSize;
+	CGRect _littleSizedFrame;
+    UITapGestureRecognizer* _gestureRecognizer;
+    NSMutableArray* _imageViews;
+	NSInteger _pageIndex;
+	BOOL _blocked;
 }
 
 @property (nonatomic, strong) UIScrollView* scroll;
@@ -31,30 +31,26 @@ const CGFloat littlePictureRatio = 0.6;
 
 @implementation AMPhotoGallery
 
-@synthesize photos;
-@synthesize scroll;
-@synthesize fullScreenMode;
-
 - (void) dealloc {
-	for (UIView* photo in imageViews) {
+	for (UIView* photo in _imageViews) {
 		[photo removeFromSuperview];
 	}
-	imageViews = nil;
+	_imageViews = nil;
 }
 
 - (void)baseInit {
-    scroll = [[UIScrollView alloc] initWithFrame:self.bounds];
-    scroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    scroll.pagingEnabled = YES;
-    scroll.clipsToBounds = NO;
-    scroll.delegate = self;
-    [self addSubview:scroll];
-    imageViews = [NSMutableArray new];
-    gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeMode)];
-    gestureRecognizer.delegate = self;
-    [self addGestureRecognizer:gestureRecognizer];
-	fullScreenMode = NO;
-	blocked = NO;
+    self.scroll = [[UIScrollView alloc] initWithFrame:self.bounds];
+    self.scroll.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.scroll.pagingEnabled = YES;
+    self.scroll.clipsToBounds = NO;
+    self.scroll.delegate = self;
+    [self addSubview:self.scroll];
+    _imageViews = [NSMutableArray new];
+    _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeMode)];
+    _gestureRecognizer.delegate = self;
+    [self addGestureRecognizer:_gestureRecognizer];
+	self.fullScreenMode = NO;
+	_blocked = NO;
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -73,76 +69,76 @@ const CGFloat littlePictureRatio = 0.6;
 }
 
 - (CGSize)imageSize {
-    if ([photos count] == 0) {
+    if ([self.photos count] == 0) {
         return CGSizeZero;
     }
-    UIImage* image = [photos objectAtIndex:0];
+    UIImage* image = [self.photos objectAtIndex:0];
     return image.size;
 }
 
 - (void)reloadPhotos {
-    imageSize = [self imageSize];
-    CGFloat ratio = self.bounds.size.height / imageSize.height;
-    pageSize = CGSizeMake(imageSize.width * ratio, self.bounds.size.height);
-    scroll.frame = CGRectMake((NSInteger)((self.bounds.size.width - pageSize.width) / 2), 0, pageSize.width, pageSize.height);
-    NSInteger imagesCount = [photos count];
+    _imageSize = [self imageSize];
+    CGFloat ratio = self.bounds.size.height / _imageSize.height;
+    _pageSize = CGSizeMake(_imageSize.width * ratio, self.bounds.size.height);
+    self.scroll.frame = CGRectMake((NSInteger)((self.bounds.size.width - _pageSize.width) / 2), 0, _pageSize.width, _pageSize.height);
+    NSInteger imagesCount = [self.photos count];
     for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIImageView* image = [[UIImageView alloc] initWithImage:[photos objectAtIndex:i]];
-        image.frame = CGRectMake(i * pageSize.width, 0, pageSize.width, pageSize.height);
+        UIImageView* image = [[UIImageView alloc] initWithImage:[self.photos objectAtIndex:i]];
+        image.frame = CGRectMake(i * _pageSize.width, 0, _pageSize.width, _pageSize.height);
         image.userInteractionEnabled = NO;
-        [scroll addSubview:image];
-        [imageViews addObject:image];
+        [self.scroll addSubview:image];
+        [_imageViews addObject:image];
     }
-    scroll.contentSize = CGSizeMake(pageSize.width * imagesCount, pageSize.height);
-    [self scrollViewDidScroll:scroll];
+    self.scroll.contentSize = CGSizeMake(_pageSize.width * imagesCount, _pageSize.height);
+    [self scrollViewDidScroll:self.scroll];
 }
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
 	self.scroll.delegate = self;
 	self.scroll.pagingEnabled = YES;
-	scroll.contentSize = CGSizeMake(pageSize.width * [photos count], pageSize.height);
-	blocked = NO;
+	self.scroll.contentSize = CGSizeMake(_pageSize.width * [self.photos count], _pageSize.height);
+	_blocked = NO;
 }
 
 - (void)collapseAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-	NSInteger imagesCount = [imageViews count];
+	NSInteger imagesCount = [_imageViews count];
 	
-	pageSize = littleSizedPageSize;
-	scroll.frame = CGRectMake((self.bounds.size.width - pageSize.width) / 2, 0, pageSize.width, pageSize.height);
-	scroll.contentSize = CGSizeMake(pageSize.width * imagesCount, pageSize.height);	
-	scroll.contentOffset = CGPointMake(pageIndex * pageSize.width, 0);
+	_pageSize = _littleSizedPageSize;
+	self.scroll.frame = CGRectMake((self.bounds.size.width - _pageSize.width) / 2, 0, _pageSize.width, _pageSize.height);
+	self.scroll.contentSize = CGSizeMake(_pageSize.width * imagesCount, _pageSize.height);	
+	self.scroll.contentOffset = CGPointMake(_pageIndex * _pageSize.width, 0);
 	
-	CGSize size = CGSizeMake(pageSize.width * littlePictureRatio, pageSize.height * littlePictureRatio);
+	CGSize size = CGSizeMake(_pageSize.width * littlePictureRatio, _pageSize.height * littlePictureRatio);
 	for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIImageView* image = [imageViews objectAtIndex:i];
-		if (i == pageIndex) {
-        	image.frame = CGRectMake(i * pageSize.width, 0, pageSize.width, pageSize.height);
+        UIImageView* image = [_imageViews objectAtIndex:i];
+		if (i == _pageIndex) {
+        	image.frame = CGRectMake(i * _pageSize.width, 0, _pageSize.width, _pageSize.height);
 		} else {			
-			image.frame = CGRectMake(i * pageSize.width + (pageSize.width - size.width) / 2, (pageSize.height - size.height) / 2, size.width, size.height);
+			image.frame = CGRectMake(i * _pageSize.width + (_pageSize.width - size.width) / 2, (_pageSize.height - size.height) / 2, size.width, size.height);
 		}
     }
 	self.scroll.delegate = self;
 	self.scroll.pagingEnabled = YES;
-	blocked = NO;
+	_blocked = NO;
 }
 
 
 - (void)setFullScreenMode {
-	blocked = YES;
+	_blocked = YES;
 	self.scroll.delegate = nil;
 	self.scroll.pagingEnabled = NO;
-	pageIndex = scroll.contentOffset.x / pageSize.width;
-	littleSizedFrame = self.frame;
-	CGRect newFrame = CGRectMake(0, self.frame.origin.y, self.superview.bounds.size.width, imageSize.height);
-	littleSizedPageSize = pageSize;
-	pageSize = imageSize;
- 	scroll.frame = CGRectMake((self.bounds.size.width - pageSize.width) / 2, 0, pageSize.width, pageSize.height);
-	NSInteger imagesCount = [imageViews count];
-	scroll.contentSize = CGSizeMake(pageSize.width * (imagesCount + 1), pageSize.height);
-	scroll.contentOffset = CGPointMake(pageIndex * pageSize.width, 0);
-	CGFloat offset = (pageIndex + 0.5) * pageSize.width - (pageIndex + 0.5) * littleSizedPageSize.width;
+	_pageIndex = self.scroll.contentOffset.x / _pageSize.width;
+	_littleSizedFrame = self.frame;
+	CGRect newFrame = CGRectMake(0, self.frame.origin.y, self.superview.bounds.size.width, _imageSize.height);
+	_littleSizedPageSize = _pageSize;
+	_pageSize = _imageSize;
+ 	self.scroll.frame = CGRectMake((self.bounds.size.width - _pageSize.width) / 2, 0, _pageSize.width, _pageSize.height);
+	NSInteger imagesCount = [_imageViews count];
+	self.scroll.contentSize = CGSizeMake(_pageSize.width * (imagesCount + 1), _pageSize.height);
+	self.scroll.contentOffset = CGPointMake(_pageIndex * _pageSize.width, 0);
+	CGFloat offset = (_pageIndex + 0.5) * _pageSize.width - (_pageIndex + 0.5) * _littleSizedPageSize.width;
 	for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIImageView* image = [imageViews objectAtIndex:i];
+        UIImageView* image = [_imageViews objectAtIndex:i];
 		CGRect imageFrame = image.frame;
 		imageFrame.origin.x += offset;
 		image.frame = imageFrame;
@@ -153,42 +149,42 @@ const CGFloat littlePictureRatio = 0.6;
 	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 	
 	self.frame = newFrame;
-	scroll.frame = CGRectMake((NSInteger)((newFrame.size.width - pageSize.width) / 2), 0, pageSize.width, pageSize.height);
+	self.scroll.frame = CGRectMake((NSInteger)((newFrame.size.width - _pageSize.width) / 2), 0, _pageSize.width, _pageSize.height);
 	
-	CGSize size = CGSizeMake(pageSize.width * littlePictureRatio, pageSize.height * littlePictureRatio);
+	CGSize size = CGSizeMake(_pageSize.width * littlePictureRatio, _pageSize.height * littlePictureRatio);
 	for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIImageView* image = [imageViews objectAtIndex:i];
-		if (i == pageIndex) {
-        	image.frame = CGRectMake(i * pageSize.width, 0, pageSize.width, pageSize.height);
+        UIImageView* image = [_imageViews objectAtIndex:i];
+		if (i == _pageIndex) {
+        	image.frame = CGRectMake(i * _pageSize.width, 0, _pageSize.width, _pageSize.height);
 		} else {			
-			image.frame = CGRectMake(i * pageSize.width + (pageSize.width - size.width) / 2, (pageSize.height - size.height) / 2, size.width, size.height);
+			image.frame = CGRectMake(i * _pageSize.width + (_pageSize.width - size.width) / 2, (_pageSize.height - size.height) / 2, size.width, size.height);
 		}
     }
 	[UIView commitAnimations];
 }
 
 - (void)removeFullScreenMode {
-	blocked = YES;
+	_blocked = YES;
 	self.scroll.delegate = nil;
 	self.scroll.pagingEnabled = NO;
-	pageIndex = scroll.contentOffset.x / pageSize.width; 	
+	_pageIndex = self.scroll.contentOffset.x / _pageSize.width;
 	
-	NSInteger imagesCount = [imageViews count];
-	CGFloat offset = (pageIndex + 0.5) * imageSize.width - (pageIndex + 0.5) * littleSizedPageSize.width;
+	NSInteger imagesCount = [_imageViews count];
+	CGFloat offset = (_pageIndex + 0.5) * _imageSize.width - (_pageIndex + 0.5) * _littleSizedPageSize.width;
 	[UIView beginAnimations:@"" context:nil];
 	[UIView setAnimationDuration:0.3];	
 	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(collapseAnimationDidStop:finished:context:)];
 	
-	self.frame = littleSizedFrame;
-	scroll.frame = CGRectMake((self.bounds.size.width - pageSize.width) / 2, 0, pageSize.width, pageSize.height);
-	CGSize size = CGSizeMake(littleSizedPageSize.width * littlePictureRatio, littleSizedPageSize.height * littlePictureRatio);
+	self.frame = _littleSizedFrame;
+	self.scroll.frame = CGRectMake((self.bounds.size.width - _pageSize.width) / 2, 0, _pageSize.width, _pageSize.height);
+	CGSize size = CGSizeMake(_littleSizedPageSize.width * littlePictureRatio, _littleSizedPageSize.height * littlePictureRatio);
 	for (NSInteger i = 0; i < imagesCount; ++i) {
-		UIImageView* image = [imageViews objectAtIndex:i];
-		if (i == pageIndex) {
-        	image.frame = CGRectMake(i * littleSizedPageSize.width + offset, 0, littleSizedPageSize.width, littleSizedPageSize.height);
+		UIImageView* image = [_imageViews objectAtIndex:i];
+		if (i == _pageIndex) {
+        	image.frame = CGRectMake(i * _littleSizedPageSize.width + offset, 0, _littleSizedPageSize.width, _littleSizedPageSize.height);
 		} else {			
-			image.frame = CGRectMake(i * littleSizedPageSize.width + (littleSizedPageSize.width - size.width) / 2 + offset, (littleSizedPageSize.height - size.height) / 2, size.width, size.height);
+			image.frame = CGRectMake(i * _littleSizedPageSize.width + (_littleSizedPageSize.width - size.width) / 2 + offset, (_littleSizedPageSize.height - size.height) / 2, size.width, size.height);
 		}
 	}
 	
@@ -199,16 +195,16 @@ const CGFloat littlePictureRatio = 0.6;
 #pragma mark properties
 
 - (void)setPhotos:(NSArray*)photosArray {
-    photos = photosArray;
+    _photos = photosArray;
     [self reloadPhotos];
 }
 
 - (void)setFullScreenMode:(BOOL)isFullScreen {
-	if (fullScreenMode == isFullScreen) {
+	if (_fullScreenMode == isFullScreen) {
 		return;
 	}
-	fullScreenMode = isFullScreen;
-	fullScreenMode ? [self setFullScreenMode] : [self removeFullScreenMode];
+	_fullScreenMode = isFullScreen;
+	_fullScreenMode ? [self setFullScreenMode] : [self removeFullScreenMode];
 }
 
 #pragma mark -
@@ -216,7 +212,7 @@ const CGFloat littlePictureRatio = 0.6;
 
 - (UIView*)hitTest:(CGPoint) point withEvent:(UIEvent*)event {
     if ([self pointInside:point withEvent:event]) {
-        return scroll;
+        return self.scroll;
     }
     return nil;
 }
@@ -225,19 +221,19 @@ const CGFloat littlePictureRatio = 0.6;
 #pragma mark UIScrollViewDelegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView*)scrollView {
-    CGFloat offset = scrollView.contentOffset.x + pageSize.width / 2;
+    CGFloat offset = scrollView.contentOffset.x + _pageSize.width / 2;
     CGFloat percentsOfFullSize;
-    NSInteger imagesCount = [imageViews count];
+    NSInteger imagesCount = [_imageViews count];
     for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIView* view = [imageViews objectAtIndex:i];
+        UIView* view = [_imageViews objectAtIndex:i];
         CGFloat imageOffset = fabsf(offset - view.center.x);
-        if (imageOffset >= pageSize.width) {
+        if (imageOffset >= _pageSize.width) {
             percentsOfFullSize = littlePictureRatio;
         } else {
-            percentsOfFullSize = 1 - (imageOffset / pageSize.width) * (1 - littlePictureRatio);
+            percentsOfFullSize = 1 - (imageOffset / _pageSize.width) * (1 - littlePictureRatio);
         }
-        CGSize size = CGSizeMake(pageSize.width * percentsOfFullSize, pageSize.height * percentsOfFullSize);
-        view.frame = CGRectMake(i * pageSize.width + (pageSize.width - size.width) / 2, (pageSize.height - size.height) / 2, size.width, size.height);
+        CGSize size = CGSizeMake(_pageSize.width * percentsOfFullSize, _pageSize.height * percentsOfFullSize);
+        view.frame = CGRectMake(i * _pageSize.width + (_pageSize.width - size.width) / 2, (_pageSize.height - size.height) / 2, size.width, size.height);
     }
 }
 
@@ -246,10 +242,10 @@ const CGFloat littlePictureRatio = 0.6;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
-	if (blocked) {
+	if (_blocked) {
 		return NO;
 	}
-    return (touch.view == scroll);
+    return (touch.view == self.scroll);
 }
 
 @end
