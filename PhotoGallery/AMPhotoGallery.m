@@ -9,6 +9,7 @@
 #import "AMPhotoGallery.h"
 
 @interface AMPhotoGallery () {
+	NSMutableArray* _images;
     CGSize _imageSize;
     CGSize _pageSize;
 	CGSize _littleSizedPageSize;
@@ -51,6 +52,7 @@ const CGFloat littlePictureRatio = 0.6;
     [self addGestureRecognizer:_gestureRecognizer];
 	self.fullScreenMode = NO;
 	_blocked = NO;
+	_images = [NSMutableArray alloc];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -69,10 +71,10 @@ const CGFloat littlePictureRatio = 0.6;
 }
 
 - (CGSize)imageSize {
-    if ([self.photos count] == 0) {
+    if ([self.images count] == 0) {
         return CGSizeZero;
     }
-    UIImage* image = [self.photos objectAtIndex:0];
+    UIImage* image = [self.images objectAtIndex:0];
     return image.size;
 }
 
@@ -81,9 +83,9 @@ const CGFloat littlePictureRatio = 0.6;
     CGFloat ratio = self.bounds.size.height / _imageSize.height;
     _pageSize = CGSizeMake(_imageSize.width * ratio, self.bounds.size.height);
     self.scroll.frame = CGRectMake((NSInteger)((self.bounds.size.width - _pageSize.width) / 2), 0, _pageSize.width, _pageSize.height);
-    NSInteger imagesCount = [self.photos count];
+    NSInteger imagesCount = [self.images count];
     for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIImageView* image = [[UIImageView alloc] initWithImage:[self.photos objectAtIndex:i]];
+        UIImageView* image = [[UIImageView alloc] initWithImage:[self.images objectAtIndex:i]];
         image.frame = CGRectMake(i * _pageSize.width, 0, _pageSize.width, _pageSize.height);
         image.userInteractionEnabled = NO;
         [self.scroll addSubview:image];
@@ -96,7 +98,7 @@ const CGFloat littlePictureRatio = 0.6;
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
 	self.scroll.delegate = self;
 	self.scroll.pagingEnabled = YES;
-	self.scroll.contentSize = CGSizeMake(_pageSize.width * [self.photos count], _pageSize.height);
+	self.scroll.contentSize = CGSizeMake(_pageSize.width * [self.images count], _pageSize.height);
 	_blocked = NO;
 }
 
@@ -194,11 +196,6 @@ const CGFloat littlePictureRatio = 0.6;
 #pragma mark -
 #pragma mark properties
 
-- (void)setPhotos:(NSArray*)photosArray {
-    _photos = photosArray;
-    [self reloadPhotos];
-}
-
 - (void)setFullScreenMode:(BOOL)isFullScreen {
 	if (_fullScreenMode == isFullScreen) {
 		return;
@@ -246,6 +243,30 @@ const CGFloat littlePictureRatio = 0.6;
 		return NO;
 	}
     return (touch.view == self.scroll);
+}
+
+#pragma mark -
+#pragma mark Properties
+
+- (NSArray *)images {
+	return [NSArray arrayWithArray:_images];
+}
+
+#pragma mark -
+#pragma mark images methods
+
+- (void)addImage:(UIImage *)image {
+	[_images addObject:image];
+	[self reloadPhotos];
+}
+
+- (void)addImagesFromArray:(NSArray *)images {
+	[_images addObjectsFromArray:images];
+	[self reloadPhotos];
+}
+
+- (void)removeImageWithIndex:(NSUInteger)index animated:(BOOL)animated completionBlock:(void (^)(BOOL))completion {
+	// ToDo: to be implemented
 }
 
 @end
