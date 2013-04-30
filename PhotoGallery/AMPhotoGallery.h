@@ -21,8 +21,17 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
 /// Array with all images
 @property (nonatomic, readonly) NSArray* images;
 
-/// Indicates if the gallery component works in full screen mode.
-@property (nonatomic, assign) BOOL fullScreenMode;
+/// Indicates if the gallery component works in full screen mode. The default value is NO
+@property (nonatomic, assign) BOOL expandedMode;
+
+/// frame for expanded mode
+@property (nonatomic, assign) CGRect expandedFrame;
+
+/// frame for collapsed mode
+@property (nonatomic, assign) CGRect collapsedFrame;
+
+/// indicates if the gallery can be expanded/collapsed on tap. The default value is YES
+@property (nonatomic, assign) BOOL canBeExpanded;
 
 /// Orientation. Shows indicates
 @property (nonatomic, assign) AMPhotoGalleryOrientation orientation;

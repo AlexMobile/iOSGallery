@@ -49,7 +49,7 @@
     _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeMode)];
     _gestureRecognizer.delegate = self;
     [self addGestureRecognizer:_gestureRecognizer];
-	self.fullScreenMode = NO;
+	_expandedMode = NO;
 	_blocked = NO;
 	_images = [NSMutableArray alloc];
 }
@@ -68,6 +68,21 @@
     }
     return self;
 }
+
+#pragma mark -
+#pragma mark UIView methods
+
+- (void)setFrame:(CGRect)frame {
+	[super setFrame:frame];
+	if (_expandedMode) {
+		_expandedFrame = frame;
+	} else {
+		_collapsedFrame = frame;
+	}
+}
+
+#pragma mark -
+#pragma mark Private methods
 
 - (CGSize)imageSize {
     if ([self.images count] == 0) {
@@ -193,14 +208,32 @@
 }
 
 #pragma mark -
-#pragma mark properties
+#pragma mark Properties
 
-- (void)setFullScreenMode:(BOOL)isFullScreen {
-	if (_fullScreenMode == isFullScreen) {
+- (void)setExpandedFrame:(CGRect)expandedFrame {
+	_expandedFrame = expandedFrame;
+	if (_expandedMode) {
+		self.frame = expandedFrame;
+	}
+}
+
+- (void)setCollapsedFrame:(CGRect)collapsedFrame {
+	_collapsedFrame = collapsedFrame;
+	if (_expandedMode == NO) {
+		self.frame = collapsedFrame;
+	}
+}
+
+- (NSArray *)images {
+	return [NSArray arrayWithArray:_images];
+}
+
+- (void)setExpandedMode:(BOOL)expandedMode {
+	if (_expandedMode == expandedMode) {
 		return;
 	}
-	_fullScreenMode = isFullScreen;
-	_fullScreenMode ? [self setFullScreenMode] : [self removeFullScreenMode];
+	_expandedMode = expandedMode;
+	_expandedMode ? [self setFullScreenMode] : [self removeFullScreenMode];
 }
 
 #pragma mark -
@@ -234,7 +267,7 @@
 }
 
 - (void)changeMode {
-    self.fullScreenMode = !self.fullScreenMode;
+    self.expandedMode = !self.expandedMode;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch {
@@ -242,13 +275,6 @@
 		return NO;
 	}
     return (touch.view == self.scroll);
-}
-
-#pragma mark -
-#pragma mark Properties
-
-- (NSArray *)images {
-	return [NSArray arrayWithArray:_images];
 }
 
 #pragma mark -
