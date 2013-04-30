@@ -45,6 +45,8 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
 /**
  Removes image with specified index from gallery
  @param index Index of image to be removed. Nothing happens if image with such index does not exists.
+ @param animated If YES, the removing process will be animated
+ @param completion A block called after the removing has been finished
  */
 - (void)removeImageWithIndex:(NSUInteger)index animated:(BOOL)animated completionBlock:(void (^)(BOOL finished))completion;
 
