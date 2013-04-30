@@ -29,7 +29,7 @@
 
 const CGFloat littlePictureRatio = 0.6;
 
-@implementation PhotoGallery_iPad
+@implementation AMPhotoGallery
 
 @synthesize photos;
 @synthesize scroll;
