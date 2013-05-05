@@ -59,4 +59,13 @@ typedef NS_ENUM(NSInteger, AGPhotoGalleryOrientation) {
  */
 - (void)removeImageWithIndex:(NSUInteger)index animated:(BOOL)animated completionBlock:(void (^)(BOOL finished))completion;
 
+/**
+ Changes component orientation. If new orientation is equal to the old and frame is not changed, completion is called immediately
+ @param orientation New orientation.
+ @param frame New frame. If this parameter is NULL, the frame is not change.
+ @param animated If YES, the transition is being animated.
+ @param A block object to be executed when the animation sequence ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished before the completion handler was called. If the duration of the animation is 0, this block is performed at the beginning of the next run loop cycle. This parameter may be NULL.
+ */
+- (void)setOrientation:(AGPhotoGalleryOrientation)orientation withFrame:(CGRect)frame animated:(BOOL)animated completionBlock:(void (^)(BOOL finished))completion;
+
 @end
