@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
 /**
  Photo gallery component for iOS
  */
-@interface AMPhotoGallery : UIView <UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface AGPhotoGallery : UIView <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 /// Array with all images
 @property (nonatomic, readonly) NSArray* images;
