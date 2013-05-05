@@ -1,6 +1,6 @@
 //
-//  PhotoGallery_iPad.m
-//  AMPhotoGallery
+//  AGPhotoGallery.m
+//  AGPhotoGallery
 //
 //  Created by Alexey Golovenkov on 30.04.13.
 //  Copyright (c) 2013 Alexey Golovenkov. All rights reserved.

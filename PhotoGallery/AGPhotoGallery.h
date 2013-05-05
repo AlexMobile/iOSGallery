@@ -1,6 +1,6 @@
 //
-//  AMPhotoGallery.h
-//  AMPhotoGallery
+//  AGPhotoGallery.h
+//  AGPhotoGallery
 //
 //  Created by Alexey Golovenkov on 30.04.13.
 //  Copyright (c) 2013 Alexey Golovenkov. All rights reserved.
@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
-	AMPhotoGalleryOrientationHorizontal,
-	AMPhotoGalleryOrientationVertical
+typedef NS_ENUM(NSInteger, AGPhotoGalleryOrientation) {
+	AGPhotoGalleryOrientationHorizontal,
+	AGPhotoGalleryOrientationVertical
 };
 
 /**
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
 @property (nonatomic, assign) BOOL canBeExpanded;
 
 /// Orientation. Shows indicates
-@property (nonatomic, assign) AMPhotoGalleryOrientation orientation;
+@property (nonatomic, assign) AGPhotoGalleryOrientation orientation;
 
 /// Size of non-active image. The default value is 0.6
 @property (nonatomic, assign) CGFloat littleImageRatio;
