@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AGPhotoGallery.h"
 
 @interface ViewController : UIViewController
+
+@property (strong, nonatomic) IBOutlet AGPhotoGallery *galleryView;
 
 @end

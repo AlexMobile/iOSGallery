@@ -51,7 +51,7 @@
     [self addGestureRecognizer:_gestureRecognizer];
 	_expandedMode = NO;
 	_blocked = NO;
-	_images = [NSMutableArray alloc];
+	_images = [[NSMutableArray alloc] init];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -92,7 +92,16 @@
     return image.size;
 }
 
+- (void)removeOldViews {
+	for (UIView* imageView in _imageViews) {
+		[imageView removeFromSuperview];
+	}
+	[_imageViews removeAllObjects];
+}
+
 - (void)reloadPhotos {
+	// FIXME: optimize algorithm to live without imageViews recreating
+	[self removeOldViews];
     _imageSize = [self imageSize];
     CGFloat ratio = self.bounds.size.height / _imageSize.height;
     _pageSize = CGSizeMake(_imageSize.width * ratio, self.bounds.size.height);
@@ -280,6 +289,7 @@
 #pragma mark -
 #pragma mark images methods
 
+
 - (void)addImage:(UIImage *)image {
 	[_images addObject:image];
 	[self reloadPhotos];
@@ -291,6 +301,13 @@
 }
 
 - (void)removeImageWithIndex:(NSUInteger)index animated:(BOOL)animated completionBlock:(void (^)(BOOL))completion {
+	// TODO: to be implemented
+}
+
+#pragma mark -
+#pragma mark Public methods
+
+- (void)setOrientation:(AGPhotoGalleryOrientation)orientation withFrame:(CGRect)frame animated:(BOOL)animated completionBlock:(void (^)(BOOL))completion {
 	// TODO: to be implemented
 }
 
