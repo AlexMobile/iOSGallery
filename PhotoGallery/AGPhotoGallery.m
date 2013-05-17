@@ -152,7 +152,7 @@
 	_blocked = YES;
 	self.scroll.delegate = nil;
 	self.scroll.pagingEnabled = NO;
-	_pageIndex = self.scroll.contentOffset.x / _pageSize.width;
+	_pageIndex = self.scroll.contentOffset.x / (NSInteger)_pageSize.width;
 	_littleSizedFrame = self.frame;
 	CGRect newFrame = CGRectMake(0, self.frame.origin.y, self.superview.bounds.size.width, _imageSize.height);
 	_littleSizedPageSize = _pageSize;
