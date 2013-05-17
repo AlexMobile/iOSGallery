@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D067B2217468EC2002202D7 /* 1.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B1B17468EC2002202D7 /* 1.jpeg */; };
+		1D067B2317468EC2002202D7 /* 2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B1C17468EC2002202D7 /* 2.jpeg */; };
+		1D067B2417468EC2002202D7 /* 3.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B1D17468EC2002202D7 /* 3.jpeg */; };
+		1D067B2517468EC2002202D7 /* 4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B1E17468EC2002202D7 /* 4.jpeg */; };
+		1D067B2617468EC2002202D7 /* 5.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B1F17468EC2002202D7 /* 5.jpeg */; };
+		1D067B2717468EC2002202D7 /* 6.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B2017468EC2002202D7 /* 6.jpeg */; };
+		1D067B2817468EC2002202D7 /* 7.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1D067B2117468EC2002202D7 /* 7.jpeg */; };
 		1D3B9994172FEB5B00BB408D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3B9993172FEB5B00BB408D /* UIKit.framework */; };
 		1D3B9996172FEB5B00BB408D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3B9995172FEB5B00BB408D /* Foundation.framework */; };
 		1D3B9998172FEB5B00BB408D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3B9997172FEB5B00BB408D /* CoreGraphics.framework */; };
@@ -39,6 +46,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D067B1B17468EC2002202D7 /* 1.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpeg; sourceTree = "<group>"; };
+		1D067B1C17468EC2002202D7 /* 2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpeg; sourceTree = "<group>"; };
+		1D067B1D17468EC2002202D7 /* 3.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpeg; sourceTree = "<group>"; };
+		1D067B1E17468EC2002202D7 /* 4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpeg; sourceTree = "<group>"; };
+		1D067B1F17468EC2002202D7 /* 5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5.jpeg; sourceTree = "<group>"; };
+		1D067B2017468EC2002202D7 /* 6.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6.jpeg; sourceTree = "<group>"; };
+		1D067B2117468EC2002202D7 /* 7.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 7.jpeg; sourceTree = "<group>"; };
 		1D3B9990172FEB5B00BB408D /* PhotoGalleryDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGalleryDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D3B9993172FEB5B00BB408D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1D3B9995172FEB5B00BB408D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +104,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D067B1A17468EC2002202D7 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				1D067B1B17468EC2002202D7 /* 1.jpeg */,
+				1D067B1C17468EC2002202D7 /* 2.jpeg */,
+				1D067B1D17468EC2002202D7 /* 3.jpeg */,
+				1D067B1E17468EC2002202D7 /* 4.jpeg */,
+				1D067B1F17468EC2002202D7 /* 5.jpeg */,
+				1D067B2017468EC2002202D7 /* 6.jpeg */,
+				1D067B2117468EC2002202D7 /* 7.jpeg */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		1D3B9987172FEB5B00BB408D = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +152,7 @@
 		1D3B9999172FEB5B00BB408D /* PhotoGalleryDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1D067B1A17468EC2002202D7 /* Images */,
 				1D3B99A2172FEB5B00BB408D /* AppDelegate.h */,
 				1D3B99A3172FEB5B00BB408D /* AppDelegate.m */,
 				1D3B99AB172FEB5B00BB408D /* ViewController.h */,
@@ -254,6 +283,13 @@
 				1D3B99AA172FEB5B00BB408D /* Default-568h@2x.png in Resources */,
 				1D3B99B0172FEB5B00BB408D /* ViewController_iPhone.xib in Resources */,
 				1D3B99B3172FEB5B00BB408D /* ViewController_iPad.xib in Resources */,
+				1D067B2217468EC2002202D7 /* 1.jpeg in Resources */,
+				1D067B2317468EC2002202D7 /* 2.jpeg in Resources */,
+				1D067B2417468EC2002202D7 /* 3.jpeg in Resources */,
+				1D067B2517468EC2002202D7 /* 4.jpeg in Resources */,
+				1D067B2617468EC2002202D7 /* 5.jpeg in Resources */,
+				1D067B2717468EC2002202D7 /* 6.jpeg in Resources */,
+				1D067B2817468EC2002202D7 /* 7.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

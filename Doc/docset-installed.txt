@@ -1,0 +1,4 @@
+Documentation set was installed to Xcode!
+
+Path: /users/Alexey_Golovenkov/Library/Developer/Shared/Documentation/DocSets/com.alexeygolovenkov.photogallery.Photo-Gallery.docset
+Time: 2013-04-30 14:24:05 +0000
