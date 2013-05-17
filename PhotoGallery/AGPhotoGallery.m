@@ -118,13 +118,6 @@
     [self scrollViewDidScroll:self.scroll];
 }
 
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-	self.scroll.delegate = self;
-	self.scroll.pagingEnabled = YES;
-	self.scroll.contentSize = CGSizeMake(_pageSize.width * [self.images count], _pageSize.height);
-	_blocked = NO;
-}
-
 - (void)collapseAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
 	NSInteger imagesCount = [_imageViews count];
 	
@@ -147,7 +140,6 @@
 	_blocked = NO;
 }
 
-
 - (void)setFullScreenMode {
 	_blocked = YES;
 	self.scroll.delegate = nil;
@@ -168,24 +160,25 @@
 		imageFrame.origin.x += offset;
 		image.frame = imageFrame;
 	}
-	[UIView beginAnimations:@"" context:nil];
-	[UIView setAnimationDuration:0.3];	
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-	
-	self.frame = newFrame;
-	self.scroll.frame = CGRectMake((NSInteger)((newFrame.size.width - _pageSize.width) / 2), 0, _pageSize.width, _pageSize.height);
-	
-	CGSize size = CGSizeMake(_pageSize.width * self.littleImageRatio, _pageSize.height * self.littleImageRatio);
-	for (NSInteger i = 0; i < imagesCount; ++i) {
-        UIImageView* image = [_imageViews objectAtIndex:i];
-		if (i == _pageIndex) {
-        	image.frame = CGRectMake(i * _pageSize.width, 0, _pageSize.width, _pageSize.height);
-		} else {			
-			image.frame = CGRectMake(i * _pageSize.width + (_pageSize.width - size.width) / 2, (_pageSize.height - size.height) / 2, size.width, size.height);
+	[UIView animateWithDuration:0.3 animations:^{
+		self.frame = newFrame;
+		self.scroll.frame = CGRectMake((NSInteger)((newFrame.size.width - _pageSize.width) / 2), 0, _pageSize.width, _pageSize.height);
+		
+		CGSize size = CGSizeMake(_pageSize.width * self.littleImageRatio, _pageSize.height * self.littleImageRatio);
+		for (NSInteger i = 0; i < imagesCount; ++i) {
+			UIImageView* image = [_imageViews objectAtIndex:i];
+			if (i == _pageIndex) {
+				image.frame = CGRectMake(i * _pageSize.width, 0, _pageSize.width, _pageSize.height);
+			} else {
+				image.frame = CGRectMake(i * _pageSize.width + (_pageSize.width - size.width) / 2, (_pageSize.height - size.height) / 2, size.width, size.height);
+			}
 		}
-    }
-	[UIView commitAnimations];
+	} completion:^(BOOL finished) {
+		self.scroll.delegate = self;
+		self.scroll.pagingEnabled = YES;
+		self.scroll.contentSize = CGSizeMake(_pageSize.width * [self.images count], _pageSize.height);
+		_blocked = NO;
+	}];	
 }
 
 - (void)removeFullScreenMode {
