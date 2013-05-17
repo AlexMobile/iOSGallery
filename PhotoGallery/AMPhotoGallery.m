@@ -291,7 +291,7 @@
 }
 
 - (void)removeImageWithIndex:(NSUInteger)index animated:(BOOL)animated completionBlock:(void (^)(BOOL))completion {
-	// ToDo: to be implemented
+	// TODO: to be implemented
 }
 
 @end
