@@ -24,8 +24,8 @@
 		1D3B99BD172FEB5B00BB408D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3B9995172FEB5B00BB408D /* Foundation.framework */; };
 		1D3B99C5172FEB5B00BB408D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D3B99C3172FEB5B00BB408D /* InfoPlist.strings */; };
 		1D3B99C8172FEB5B00BB408D /* PhotoGalleryDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B99C7172FEB5B00BB408D /* PhotoGalleryDemoTests.m */; };
-		1D3B99D4172FEBFB00BB408D /* AMPhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B99D3172FEBFB00BB408D /* AMPhotoGallery.m */; };
-		1D3B99D5172FEBFB00BB408D /* AMPhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B99D3172FEBFB00BB408D /* AMPhotoGallery.m */; };
+		1D3B99D4172FEBFB00BB408D /* AGPhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B99D3172FEBFB00BB408D /* AGPhotoGallery.m */; };
+		1D3B99D5172FEBFB00BB408D /* AGPhotoGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B99D3172FEBFB00BB408D /* AGPhotoGallery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,8 +62,8 @@
 		1D3B99C4172FEB5B00BB408D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D3B99C6172FEB5B00BB408D /* PhotoGalleryDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryDemoTests.h; sourceTree = "<group>"; };
 		1D3B99C7172FEB5B00BB408D /* PhotoGalleryDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryDemoTests.m; sourceTree = "<group>"; };
-		1D3B99D2172FEBFB00BB408D /* AMPhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMPhotoGallery.h; sourceTree = "<group>"; };
-		1D3B99D3172FEBFB00BB408D /* AMPhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMPhotoGallery.m; sourceTree = "<group>"; };
+		1D3B99D2172FEBFB00BB408D /* AGPhotoGallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoGallery.h; sourceTree = "<group>"; };
+		1D3B99D3172FEBFB00BB408D /* AGPhotoGallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoGallery.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,8 +171,8 @@
 		1D3B99D1172FEBFB00BB408D /* PhotoGallery */ = {
 			isa = PBXGroup;
 			children = (
-				1D3B99D2172FEBFB00BB408D /* AMPhotoGallery.h */,
-				1D3B99D3172FEBFB00BB408D /* AMPhotoGallery.m */,
+				1D3B99D2172FEBFB00BB408D /* AGPhotoGallery.h */,
+				1D3B99D3172FEBFB00BB408D /* AGPhotoGallery.m */,
 			);
 			name = PhotoGallery;
 			path = ../PhotoGallery;
@@ -291,7 +291,7 @@
 				1D3B99A0172FEB5B00BB408D /* main.m in Sources */,
 				1D3B99A4172FEB5B00BB408D /* AppDelegate.m in Sources */,
 				1D3B99AD172FEB5B00BB408D /* ViewController.m in Sources */,
-				1D3B99D4172FEBFB00BB408D /* AMPhotoGallery.m in Sources */,
+				1D3B99D4172FEBFB00BB408D /* AGPhotoGallery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D3B99C8172FEB5B00BB408D /* PhotoGalleryDemoTests.m in Sources */,
-				1D3B99D5172FEBFB00BB408D /* AMPhotoGallery.m in Sources */,
+				1D3B99D5172FEBFB00BB408D /* AGPhotoGallery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +483,7 @@
 				1D3B99CD172FEB5C00BB408D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1D3B99CE172FEB5C00BB408D /* Build configuration list for PBXNativeTarget "PhotoGalleryDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +492,7 @@
 				1D3B99D0172FEB5C00BB408D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

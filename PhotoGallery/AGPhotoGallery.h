@@ -1,6 +1,6 @@
 //
-//  AMPhotoGallery.h
-//  AMPhotoGallery
+//  AGPhotoGallery.h
+//  AGPhotoGallery
 //
 //  Created by Alexey Golovenkov on 30.04.13.
 //  Copyright (c) 2013 Alexey Golovenkov. All rights reserved.
@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
-	AMPhotoGalleryOrientationHorizontal,
-	AMPhotoGalleryOrientationVertical
+typedef NS_ENUM(NSInteger, AGPhotoGalleryOrientation) {
+	AGPhotoGalleryOrientationHorizontal,
+	AGPhotoGalleryOrientationVertical
 };
 
 /**
  Photo gallery component for iOS
  */
-@interface AMPhotoGallery : UIView <UIScrollViewDelegate, UIGestureRecognizerDelegate>
+@interface AGPhotoGallery : UIView <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 /// Array with all images
 @property (nonatomic, readonly) NSArray* images;
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
 @property (nonatomic, assign) BOOL canBeExpanded;
 
 /// Orientation. Shows indicates
-@property (nonatomic, assign) AMPhotoGalleryOrientation orientation;
+@property (nonatomic, assign) AGPhotoGalleryOrientation orientation;
 
 /// Size of non-active image. The default value is 0.6
 @property (nonatomic, assign) CGFloat littleImageRatio;
@@ -58,5 +58,14 @@ typedef NS_ENUM(NSInteger, AMPhotoGalleryOrientation) {
  @param completion A block called after the removing has been finished
  */
 - (void)removeImageWithIndex:(NSUInteger)index animated:(BOOL)animated completionBlock:(void (^)(BOOL finished))completion;
+
+/**
+ Changes component orientation. If new orientation is equal to the old and frame is not changed, completion is called immediately
+ @param orientation New orientation.
+ @param frame New frame. If this parameter is NULL, the frame is not change.
+ @param animated If YES, the transition is being animated.
+ @param A block object to be executed when the animation sequence ends. This block has no return value and takes a single Boolean argument that indicates whether or not the animations actually finished before the completion handler was called. If the duration of the animation is 0, this block is performed at the beginning of the next run loop cycle. This parameter may be NULL.
+ */
+- (void)setOrientation:(AGPhotoGalleryOrientation)orientation withFrame:(CGRect)frame animated:(BOOL)animated completionBlock:(void (^)(BOOL finished))completion;
 
 @end

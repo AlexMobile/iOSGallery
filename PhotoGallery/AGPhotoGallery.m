@@ -1,14 +1,14 @@
 //
-//  PhotoGallery_iPad.m
-//  AMPhotoGallery
+//  AGPhotoGallery.m
+//  AGPhotoGallery
 //
 //  Created by Alexey Golovenkov on 30.04.13.
 //  Copyright (c) 2013 Alexey Golovenkov. All rights reserved.
 //
 
-#import "AMPhotoGallery.h"
+#import "AGPhotoGallery.h"
 
-@interface AMPhotoGallery () {
+@interface AGPhotoGallery () {
 	NSMutableArray* _images;
     CGSize _imageSize;
     CGSize _pageSize;
@@ -28,7 +28,7 @@
 
 @end
 
-@implementation AMPhotoGallery
+@implementation AGPhotoGallery
 
 - (void) dealloc {
 	for (UIView* photo in _imageViews) {
